@@ -1,0 +1,77 @@
+﻿@model Project
+<h2>Edit project</h2>
+<form asp-action="Edit" asp-route-id="@Model.Id" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="mb-2">
+        <label>Course</label><br />
+        <select asp-for="CourseId" asp-items="@(new SelectList((List<Course>)ViewBag.Courses, "Id", "Title"))" required></select>
+    </div>
+
+    <div class="mb-2">
+        <label>Title</label><br />
+        <input asp-for="Title" required maxlength="100" />
+    </div>
+
+    <div class="mb-2">
+        <label>Description</label><br />
+        <textarea asp-for="Description"></textarea>
+    </div>
+
+    <div class="mb-2">
+        <label>Year</label><br />
+        <input asp-for="Year" type="number" min="2000" max="2100" required />
+    </div>
+
+    <div class="mb-2">
+        <label>Video link (YouTube)</label><br />
+        <input asp-for="VideoUrl" pattern="https?://(www\.)?(youtube\.com/(watch\?v=|shorts/)|youtu\.be/)[A-Za-z0-9_\-]{11}.*" />
+        <span asp-validation-for="VideoUrl" class="text-danger"></span>
+        <span id="imageUrlsError" class="text-danger"></span>
+    </div>
+
+    <div class="mb-2">
+        <label>Image URLs (one per line)</label><br />
+        <textarea asp-for="ImageUrls" rows="5" cols="80"></textarea>
+        <span asp-validation-for="ImageUrls" class="text-danger"></span>
+    </div>
+
+    <button type="submit">Save</button>
+</form>
+
+<hr />
+<script>
+    document.getElementById('ImageUrls').closest('form').addEventListener('submit', function(e) {
+        var re = /^https?:\/\/\S+\.(jpg|jpeg|png|gif|webp)(\?\S*)?$/i;
+        var lines = document.getElementById('ImageUrls').value.split('\n')
+            .map(function(s) { return s.trim(); })
+            .filter(function(s) { return s !== ''; });
+        var bad = lines.find(function(l) { return !re.test(l); });
+        var msg = document.getElementById('imageUrlsError');
+        if (bad) { e.preventDefault(); msg.textContent = 'Not a valid image URL: ' + bad; }
+        else { msg.textContent = ''; }
+    });
+</script>
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+<h4>Images</h4>
+@foreach (var img in Model.Images)
+{
+    <div>
+        <img src="@img.Url" style="max-width:120px" />
+        <form asp-controller="EditorImages" asp-action="Delete" method="post" style="display:inline">
+            <input type="hidden" name="id" value="@img.Id" />
+            <input type="hidden" name="projectId" value="@Model.Id" />
+            <button type="submit">Delete image</button>
+        </form>
+    </div>
+}
+<form asp-controller="EditorImages" asp-action="Add" method="post">
+    <input type="hidden" name="projectId" value="@Model.Id" />
+    <input name="url" placeholder="Image URL" required pattern="https?://\S+\.(jpg|jpeg|png|gif|webp)(\?\S*)?" title="Use a link ending in .jpg, .jpeg, .png, .gif or .webp" />
+    <button type="submit">Add image</button>
+</form>
+
+<p><a asp-controller="EditorCourses" asp-action="Details" asp-route-id="@Model.CourseId">Back</a></p>

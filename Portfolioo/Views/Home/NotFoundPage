@@ -1,0 +1,4 @@
+﻿@{ ViewData["Title"] = "Page not found"; }
+<h2>Page not found</h2>
+<p>That course, project or page doesn't exist.</p>
+<p><a asp-controller="Courses" asp-action="Index">Back to my portfolio</a></p>

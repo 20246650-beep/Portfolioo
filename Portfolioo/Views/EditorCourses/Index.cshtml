@@ -1,0 +1,24 @@
+﻿@model List<Course>
+<h2>Editor: Courses</h2>
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+<a asp-action="Create">Add course</a>
+<table class="table">
+    @foreach (var c in Model)
+    {
+        <tr>
+            <td>@c.Code</td>
+            <td>@c.Title</td>
+            <td>
+                <a asp-action="Details" asp-route-id="@c.Id">Projects</a> |
+                <a asp-action="Edit" asp-route-id="@c.Id">Edit</a>
+                <form asp-action="DeleteConfirmed" asp-route-id="@c.Id" method="post" style="display:inline"
+                      onsubmit="return confirm('Delete this course?')">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>

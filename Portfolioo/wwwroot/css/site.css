@@ -29,3 +29,54 @@ body {
 .form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
   text-align: start;
 }
+body {
+    background: #f6f3ee;
+    color: #2b2b2b;
+    font-family: Georgia, 'Times New Roman', serif;
+}
+
+.navbar {
+    background: #1f2a44 !important;
+}
+
+    .navbar .nav-link, .navbar-brand {
+        color: #f6f3ee !important;
+        letter-spacing: .5px;
+    }
+
+h2, h4 {
+    color: #1f2a44;
+}
+
+.card {
+    border: 0;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0,0,0,.08);
+    transition: transform .15s;
+}
+
+    .card:hover {
+        transform: translateY(-4px);
+    }
+
+a {
+    color: #c0392b;
+}
+
+img {
+    border-radius: 8px;
+}
+
+button {
+    background: #1f2a44;
+    color: #fff;
+    border: 0;
+    border-radius: 6px;
+    padding: 4px 12px;
+}
+
+input, select, textarea {
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    padding: 4px 8px;
+}

@@ -1,0 +1,24 @@
+﻿@model Course
+<h2>@Model.Code: @Model.Title</h2>
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+<a asp-controller="EditorProjects" asp-action="Create" asp-route-courseId="@Model.Id">Add project</a>
+<table class="table">
+    @foreach (var p in (List<Project>)ViewBag.Projects)
+    {
+        <tr>
+            <td>@p.Title</td>
+            <td>@p.Year</td>
+            <td>
+                <a asp-controller="EditorProjects" asp-action="Edit" asp-route-id="@p.Id">Edit</a>
+                <form asp-controller="EditorProjects" asp-action="DeleteConfirmed" asp-route-id="@p.Id" method="post" style="display:inline"
+                      onsubmit="return confirm('Delete this project?')">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+</table>
+<a asp-action="Index">Back to courses</a>

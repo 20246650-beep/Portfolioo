@@ -21,12 +21,16 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-controller="Courses" asp-action="Index">Viewer</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-controller="EditorCourses" asp-action="Index">Editor</a>
                         </li>
                     </ul>
+                    <form class="d-flex" asp-controller="Projects" asp-action="Search" method="get">
+                        <input name="q" placeholder="Search projects" required />
+                        <button type="submit">Search</button>
+                    </form>
                 </div>
             </div>
         </nav>

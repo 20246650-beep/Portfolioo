@@ -1,0 +1,57 @@
+﻿@model Project
+<h2>Add project</h2>
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <div class="mb-2">
+        <label>Course</label><br />
+        <select asp-for="CourseId" asp-items="@(new SelectList((List<Course>)ViewBag.Courses, "Id", "Title"))" required></select>
+    </div>
+
+    <div class="mb-2">
+        <label>Title</label><br />
+        <input asp-for="Title" required maxlength="100" />
+    </div>
+
+    <div class="mb-2">
+        <label>Description</label><br />
+        <textarea asp-for="Description"></textarea>
+    </div>
+
+    <div class="mb-2">
+        <label>Year</label><br />
+        <input asp-for="Year" type="number" min="2000" max="2100" required />
+    </div>
+
+    <div class="mb-2">
+        <label>Video link (YouTube)</label><br />
+        <input asp-for="VideoUrl" pattern="https?://(www\.)?(youtube\.com/(watch\?v=|shorts/)|youtu\.be/)[A-Za-z0-9_\-]{11}.*" />
+        <span asp-validation-for="VideoUrl" class="text-danger"></span>
+    </div>
+
+    <div class="mb-2">
+        <label>Image URLs (one per line)</label><br />
+        <textarea asp-for="ImageUrls" rows="5" cols="80"></textarea>
+        <span asp-validation-for="ImageUrls" class="text-danger"></span>
+        <span id="imageUrlsError" class="text-danger"></span>
+    </div>
+
+    <button type="submit">Save</button>
+</form>
+<script>
+    document.getElementById('ImageUrls').closest('form').addEventListener('submit', function(e) {
+        var re = /^https?:\/\/\S+\.(jpg|jpeg|png|gif|webp)(\?\S*)?$/i;
+        var lines = document.getElementById('ImageUrls').value.split('\n')
+            .map(function(s) { return s.trim(); })
+            .filter(function(s) { return s !== ''; });
+        var bad = lines.find(function(l) { return !re.test(l); });
+        var msg = document.getElementById('imageUrlsError');
+        if (bad) { e.preventDefault(); msg.textContent = 'Not a valid image URL: ' + bad; }
+        else { msg.textContent = ''; }
+    });
+</script>
+<p><a asp-controller="EditorCourses" asp-action="Index">Back</a></p>

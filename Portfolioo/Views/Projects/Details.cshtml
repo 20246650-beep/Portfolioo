@@ -1,0 +1,24 @@
+﻿@model Project
+<h2>@Model.Title</h2>
+<p>@Model.Year</p>
+<p>@Model.Description</p>
+
+@if (Model.Images.Count > 0)
+{
+    <h4>Images</h4>
+    @foreach (var img in Model.Images)
+    {
+        <img src="@img.Url" alt="@Model.Title" style="max-width:300px; margin:4px" />
+    }
+}
+
+@{
+    var videoId = System.Text.RegularExpressions.Regex.Match(Model.VideoUrl ?? "", @"(?:v=|youtu\.be/|shorts/)([A-Za-z0-9_-]{11})").Groups[1].Value;
+}
+@if (videoId != "")
+{
+    <h4>Video</h4>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/@videoId" title="Project demo" allowfullscreen></iframe>
+}
+
+<p><a asp-controller="Courses" asp-action="Details" asp-route-id="@Model.CourseId">Back to course</a></p>

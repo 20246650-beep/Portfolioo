@@ -1,0 +1,9 @@
+﻿@model Course
+<h2>@Model.Code: @Model.Title</h2>
+<p>@Model.Description</p>
+<h4>Projects</h4>
+@foreach (var p in (List<Project>)ViewBag.Projects)
+{
+    <p><a asp-controller="Projects" asp-action="Details" asp-route-id="@p.Id">@p.Title</a> (@p.Year)</p>
+}
+<a asp-action="Index">Back</a>

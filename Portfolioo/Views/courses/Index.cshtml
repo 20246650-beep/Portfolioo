@@ -1,0 +1,14 @@
+﻿@model List<Course>
+<h2>My Courses</h2>
+<div class="row">
+    @foreach (var c in Model)
+    {
+        <div class="col-md-4 mb-3">
+            <div class="card p-3">
+                <h5>@c.Code</h5>
+                <p>@c.Title</p>
+                <a asp-action="Details" asp-route-id="@c.Id">See projects</a>
+            </div>
+        </div>
+    }
+</div>

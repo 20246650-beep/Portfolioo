@@ -4,6 +4,16 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>f35f9916-7c32-43ea-a0fe-35ccb5825e5a</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Views\Home\NotFoundPage" />
+    <Content Include="Views\Projects\Search" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Npgsql" Version="10.0.3" />
+  </ItemGroup>
 
 </Project>

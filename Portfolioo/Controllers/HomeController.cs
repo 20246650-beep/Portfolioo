@@ -15,6 +15,7 @@ namespace Portfolioo.Controllers
         {
             return View();
         }
+        public IActionResult NotFoundPage() => View();
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
